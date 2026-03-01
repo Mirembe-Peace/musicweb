@@ -4,11 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "with-env": "dotenv -e ../../.env --",
+    "dev": "pnpm with-env vite",
+    "build": "pnpm with-env tsc -b && pnpm with-env vite build",
     "lint": "eslint .",
-    "preview": "vite preview",
-    "deploy:firebase": "npm run build && npx firebase deploy --only hosting"
+    "preview": "pnpm with-env vite preview",
+    "deploy:firebase": "pnpm build && npx firebase deploy --only hosting"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -27,7 +28,6 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
-    "dotenv": "^17.2.4",
     "express": "^5.2.1",
     "firebase": "^12.10.0",
     "framer-motion": "^12.34.3",
@@ -54,6 +54,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
     "autoprefixer": "^10.4.23",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
