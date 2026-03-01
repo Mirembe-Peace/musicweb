@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Loader2, Calendar, MapPin, Mail, Phone, User } from "lucide-react";
 import { toast } from "sonner";
+import { formatDistanceToNow } from "date-fns";
 
 interface Booking {
   id: string;
@@ -50,16 +51,16 @@ export default function AdminBookings() {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div>
-        <div className="font-black text-xl">Booking Requests</div>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <h2 className="text-lg font-semibold">Bookings</h2>
+        <p className="text-sm text-muted-foreground">
           {bookings.length} booking{bookings.length !== 1 ? "s" : ""} received
         </p>
       </div>
 
       {bookings.length === 0 ? (
-        <Card className="rounded-3xl">
+        <Card>
           <CardContent className="p-6 text-center text-muted-foreground">
             No booking requests yet.
           </CardContent>
@@ -67,7 +68,7 @@ export default function AdminBookings() {
       ) : (
         <div className="grid gap-4">
           {bookings.map((b) => (
-            <Card key={b.id} className="rounded-3xl">
+            <Card key={b.id}>
               <CardContent className="p-5 space-y-3">
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
@@ -112,7 +113,7 @@ export default function AdminBookings() {
                 )}
 
                 <div className="text-xs text-muted-foreground">
-                  Received: {new Date(b.createdAt).toLocaleDateString()}
+                  Received: {formatDistanceToNow(new Date(b.createdAt), { addSuffix: true })}
                 </div>
               </CardContent>
             </Card>

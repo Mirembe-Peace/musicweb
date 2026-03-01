@@ -82,16 +82,16 @@ export default function AdminTickets() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div>
-        <div className="font-black text-xl">Ticket Management</div>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <h2 className="text-lg font-semibold">Tickets</h2>
+        <p className="text-sm text-muted-foreground">
           Verify and manage concert tickets
         </p>
       </div>
 
       {/* Verify section */}
-      <Card className="rounded-3xl">
+      <Card>
         <CardContent className="p-6">
           <div className="font-bold text-sm mb-3">Verify Ticket</div>
           <div className="flex gap-3">
@@ -99,13 +99,12 @@ export default function AdminTickets() {
               value={verifyCode}
               onChange={(e) => setVerifyCode(e.target.value)}
               placeholder="Enter ticket code (e.g. TKT-ABCD1234)"
-              className="rounded-2xl flex-1"
+              className="flex-1"
               onKeyDown={(e) => e.key === "Enter" && handleVerify()}
             />
             <Button
               onClick={handleVerify}
               disabled={verifying}
-              className="rounded-2xl"
             >
               {verifying ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -116,7 +115,7 @@ export default function AdminTickets() {
           </div>
 
           {verifyResult && (
-            <div className="mt-4 rounded-2xl border p-4">
+            <div className="mt-4 rounded-lg border p-4">
               <div className="flex items-center justify-between">
                 <div>
                   <div className="font-black">{verifyResult.buyerName}</div>
@@ -135,7 +134,7 @@ export default function AdminTickets() {
               {verifyResult.valid && (
                 <Button
                   onClick={() => handleMarkUsed(verifyCode.trim())}
-                  className="mt-3 rounded-2xl w-full"
+                  className="mt-3 w-full"
                   variant="default"
                 >
                   Mark as Used
@@ -155,7 +154,7 @@ export default function AdminTickets() {
 
       {/* Tickets list */}
       <div>
-        <div className="font-bold text-sm mb-3">
+        <div className="font-medium text-xs text-muted-foreground mb-2">
           All Tickets ({tickets.length})
         </div>
 
@@ -164,7 +163,7 @@ export default function AdminTickets() {
             <Loader2 className="h-8 w-8 animate-spin text-primary" />
           </div>
         ) : tickets.length === 0 ? (
-          <Card className="rounded-3xl">
+          <Card>
             <CardContent className="p-6 text-center text-muted-foreground">
               No tickets yet
             </CardContent>
@@ -172,7 +171,7 @@ export default function AdminTickets() {
         ) : (
           <div className="grid gap-3">
             {tickets.map((t) => (
-              <Card key={t.id} className="rounded-3xl">
+              <Card key={t.id}>
                 <CardContent className="p-5 flex items-center justify-between gap-4">
                   <div className="min-w-0">
                     <div className="font-bold truncate">{t.buyerName}</div>

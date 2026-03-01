@@ -5,6 +5,7 @@ import App from "@/app/App";
 import { SiteConfigProvider } from "@/app/SiteConfigProvider";
 import { AudioProvider } from '@/app/AudioContext';
 import { AuthProvider } from '@/app/AuthContext';
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { initAnalytics } from '@/lib/firebase';
 import "@/style.css";
 
@@ -15,10 +16,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <BrowserRouter>
       <SiteConfigProvider>
         <AudioProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </AudioProvider>
+          <AuthProvider>
+            <TooltipProvider>
+              <App />
+            </TooltipProvider>
+          </AuthProvider>
+        </AudioProvider>
       </SiteConfigProvider>
     </BrowserRouter>
   </React.StrictMode>

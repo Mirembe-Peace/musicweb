@@ -69,14 +69,14 @@ export default function AdminMerch() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-black">Merchandise Management</h2>
-        <Button onClick={() => { setIsEditing(true); setCurrentProduct({}); }} className="rounded-2xl">
+        <h2 className="text-lg font-semibold">Merchandise</h2>
+        <Button size="sm" onClick={() => { setIsEditing(true); setCurrentProduct({}); }}>
           <Plus className="mr-2 h-4 w-4" /> Add Product
         </Button>
       </div>
 
       {isEditing && (
-        <Card className="rounded-3xl border shadow-soft">
+        <Card>
           <CardHeader>
             <CardTitle>{currentProduct.id ? "Edit Product" : "Add New Product"}</CardTitle>
           </CardHeader>
@@ -119,15 +119,15 @@ export default function AdminMerch() {
                 />
               </div>
               <div className="md:col-span-2 flex justify-end gap-2 pt-4">
-                <Button type="button" variant="outline" onClick={() => setIsEditing(false)} className="rounded-2xl">Cancel</Button>
-                <Button type="submit" className="rounded-2xl">Save Product</Button>
+                <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>Cancel</Button>
+                <Button type="submit">Save Product</Button>
               </div>
             </form>
           </CardContent>
         </Card>
       )}
 
-      <Card className="rounded-3xl border shadow-soft">
+      <Card>
         <CardHeader>
           <CardTitle>Existing Items</CardTitle>
         </CardHeader>

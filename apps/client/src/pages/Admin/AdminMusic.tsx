@@ -71,14 +71,14 @@ export default function AdminMusic() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-black">Music Management</h2>
-        <Button onClick={() => { setIsEditing(true); setCurrentSong({}); }} className="rounded-2xl">
+        <h2 className="text-lg font-semibold">Music</h2>
+        <Button size="sm" onClick={() => { setIsEditing(true); setCurrentSong({}); }}>
           <Plus className="mr-2 h-4 w-4" /> Add Song
         </Button>
       </div>
 
       {isEditing && (
-        <Card className="rounded-3xl border shadow-soft">
+        <Card>
           <CardHeader>
             <CardTitle>{currentSong.id ? "Edit Song" : "Add New Song"}</CardTitle>
           </CardHeader>
@@ -120,15 +120,15 @@ export default function AdminMusic() {
                 />
               </div>
               <div className="md:col-span-2 flex justify-end gap-2 pt-4">
-                <Button type="button" variant="outline" onClick={() => setIsEditing(false)} className="rounded-2xl">Cancel</Button>
-                <Button type="submit" className="rounded-2xl">Save Song</Button>
+                <Button type="button" variant="outline" onClick={() => setIsEditing(false)}>Cancel</Button>
+                <Button type="submit">Save Song</Button>
               </div>
             </form>
           </CardContent>
         </Card>
       )}
 
-      <Card className="rounded-3xl border shadow-soft">
+      <Card>
         <CardHeader>
           <CardTitle>Existing Songs</CardTitle>
         </CardHeader>

@@ -1,9 +1,9 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
-import { Loader2 } from "lucide-react";
+import { Loader2, Music, DollarSign, Ticket, CalendarDays, CreditCard, BookOpen } from "lucide-react";
+import { formatDistanceToNow } from "date-fns";
 
 interface Stats {
   totalSongs: number;
@@ -42,65 +42,60 @@ export default function AdminDashboard() {
   }
 
   const cards = [
-    { label: "Total Songs", value: stats?.totalSongs ?? 0, link: "/admin/music" },
-    { label: "Revenue (UGX)", value: (stats?.totalRevenue ?? 0).toLocaleString(), link: null },
-    { label: "Tickets Sold", value: stats?.ticketsSold ?? 0, link: "/admin/tickets" },
-    { label: "Upcoming Concerts", value: stats?.upcomingConcerts ?? 0, link: "/admin/concerts" },
-    { label: "Total Payments", value: stats?.totalPayments ?? 0, link: null },
-    { label: "Total Bookings", value: stats?.totalBookings ?? 0, link: "/admin/bookings" },
+    { label: "Total Songs", value: stats?.totalSongs ?? 0, link: "/admin/music", icon: Music },
+    { label: "Revenue (UGX)", value: (stats?.totalRevenue ?? 0).toLocaleString(), link: null, icon: DollarSign },
+    { label: "Tickets Sold", value: stats?.ticketsSold ?? 0, link: "/admin/tickets", icon: Ticket },
+    { label: "Upcoming Concerts", value: stats?.upcomingConcerts ?? 0, link: "/admin/concerts", icon: CalendarDays },
+    { label: "Total Payments", value: stats?.totalPayments ?? 0, link: null, icon: CreditCard },
+    { label: "Total Bookings", value: stats?.totalBookings ?? 0, link: "/admin/bookings", icon: BookOpen },
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div>
-        <div className="font-black text-xl">Dashboard</div>
-        <p className="mt-1 text-sm text-muted-foreground">
+        <h2 className="text-lg font-semibold">Dashboard</h2>
+        <p className="text-sm text-muted-foreground">
           Overview of your Ashaba Music platform
         </p>
       </div>
 
       {/* Stats cards */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {cards.map((c) => (
-          <Card key={c.label} className="rounded-3xl">
-            <CardContent className="p-6">
-              <div className="text-sm font-bold text-muted-foreground">
+          <div key={c.label} className="rounded-lg border bg-card p-4">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-medium text-muted-foreground">
                 {c.label}
-              </div>
-              <div className="mt-2 text-3xl font-black">{c.value}</div>
-              {c.link && (
-                <Button
-                  asChild
-                  variant="link"
-                  className="mt-2 px-0 font-bold text-primary"
-                >
-                  <Link to={c.link}>Manage</Link>
-                </Button>
-              )}
-            </CardContent>
-          </Card>
+              </span>
+              <c.icon className="h-3.5 w-3.5 text-muted-foreground" />
+            </div>
+            <div className="mt-1 text-2xl font-bold tabular-nums">{c.value}</div>
+            {c.link && (
+              <Link to={c.link} className="mt-1 inline-block text-xs font-medium text-primary hover:underline">
+                Manage &rarr;
+              </Link>
+            )}
+          </div>
         ))}
       </div>
 
       {/* Recent bookings */}
       {stats?.recentBookings && stats.recentBookings.length > 0 && (
         <div>
-          <div className="font-bold text-sm mb-3">Recent Bookings</div>
-          <div className="grid gap-3">
+          <div className="text-xs font-medium text-muted-foreground mb-2">Recent Bookings</div>
+          <div className="rounded-lg border bg-card divide-y">
             {stats.recentBookings.map((b) => (
-              <Card key={b.id} className="rounded-3xl">
-                <CardContent className="p-5 flex items-center justify-between gap-4">
-                  <div className="min-w-0">
-                    <div className="font-bold truncate">{b.fullName}</div>
-                    <div className="text-xs text-muted-foreground">
-                      {b.eventType} &bull; {b.eventDate}
-                    </div>
+              <div key={b.id} className="flex items-center justify-between gap-4 px-4 py-3">
+                <div className="min-w-0">
+                  <div className="text-sm font-medium truncate">{b.fullName}</div>
+                  <div className="text-xs text-muted-foreground">
+                    {b.eventType} &bull; {b.eventDate}
                   </div>
-                  <div className="text-xs text-muted-foreground shrink-0">
-                    {new Date(b.createdAt).toLocaleDateString()}
-                  </div>
-                </CardContent>
-              </Card>
+                </div>
+                <span className="text-xs text-muted-foreground shrink-0">
+                  {formatDistanceToNow(new Date(b.createdAt), { addSuffix: true })}
+                </span>
+              </div>
             ))}
           </div>
         </div>
@@ -108,19 +103,19 @@ export default function AdminDashboard() {
 
       {/* Quick actions */}
       <div>
-        <div className="font-bold text-sm mb-3">Quick Actions</div>
-        <div className="flex flex-wrap gap-3">
-          <Button asChild variant="outline" className="rounded-2xl">
-            <Link to="/admin/music">Manage Music</Link>
+        <div className="text-xs font-medium text-muted-foreground mb-2">Quick Actions</div>
+        <div className="flex flex-wrap gap-2">
+          <Button asChild variant="outline" size="sm">
+            <Link to="/admin/music">Music</Link>
           </Button>
-          <Button asChild variant="outline" className="rounded-2xl">
-            <Link to="/admin/concerts">Manage Concerts</Link>
+          <Button asChild variant="outline" size="sm">
+            <Link to="/admin/concerts">Concerts</Link>
           </Button>
-          <Button asChild variant="outline" className="rounded-2xl">
-            <Link to="/admin/tickets">Manage Tickets</Link>
+          <Button asChild variant="outline" size="sm">
+            <Link to="/admin/tickets">Tickets</Link>
           </Button>
-          <Button asChild variant="outline" className="rounded-2xl">
-            <Link to="/admin/images">Manage Images</Link>
+          <Button asChild variant="outline" size="sm">
+            <Link to="/admin/images">Images</Link>
           </Button>
         </div>
       </div>

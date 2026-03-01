@@ -31,7 +31,7 @@ export default function AdminLogin() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-muted/30">
-      <Card className="w-full max-w-md rounded-3xl border shadow-soft">
+      <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl font-black">Admin Login</CardTitle>
           <p className="text-sm text-muted-foreground">Access your music dashboard</p>
@@ -58,7 +58,7 @@ export default function AdminLogin() {
                 required
               />
             </div>
-            <Button type="submit" className="w-full rounded-2xl h-12" disabled={loading}>
+            <Button type="submit" className="w-full h-12" disabled={loading}>
               {loading ? "Logging in..." : "Login"}
             </Button>
           </form>

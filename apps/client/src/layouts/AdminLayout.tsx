@@ -1,76 +1,104 @@
-import { NavLink, Outlet } from "react-router-dom";
-import { LayoutDashboard, Music, Image as ImageIcon, Package, Ticket, BookOpen, LogOut, ScanLine } from "lucide-react";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Music,
+  Image as ImageIcon,
+  Package,
+  Ticket,
+  BookOpen,
+  LogOut,
+  ScanLine,
+} from "lucide-react";
 import { useAuth } from "@/app/AuthContext";
 import { Button } from "@/components/ui/button";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarMenuButton,
+  SidebarProvider,
+  SidebarInset,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
 
-const linkClass = ({ isActive }: { isActive: boolean }) =>
-  `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all ${
-    isActive 
-      ? "bg-primary text-primary-foreground shadow-md" 
-      : "text-muted-foreground hover:bg-muted hover:text-foreground"
-  }`;
+const navItems = [
+  { to: "/admin", label: "Dashboard", icon: LayoutDashboard, end: true },
+  { to: "/admin/music", label: "Music", icon: Music },
+  { to: "/admin/images", label: "Images", icon: ImageIcon },
+  { to: "/admin/merchandise", label: "Merchandise", icon: Package },
+  { to: "/admin/concerts", label: "Concerts", icon: Ticket },
+  { to: "/admin/bookings", label: "Bookings", icon: BookOpen },
+  { to: "/admin/tickets", label: "Tickets", icon: ScanLine },
+];
+
+function pageTitleFromPath(pathname: string) {
+  const segment = pathname.replace("/admin", "").replace("/", "");
+  if (!segment) return "Dashboard";
+  return segment.charAt(0).toUpperCase() + segment.slice(1);
+}
 
 export default function AdminLayout() {
   const { logout } = useAuth();
+  const { pathname } = useLocation();
 
   return (
-    <div className="flex min-h-screen bg-muted/30">
-      {/* Sidebar */}
-      <aside className="w-64 border-r bg-card h-screen sticky top-0 flex flex-col pt-8 px-4 shadow-sm">
-        <div className="mb-10 px-4 flex items-center gap-3">
-          <div className="h-6 w-6 rounded-full bg-primary" />
-          <h1 className="text-xl font-black tracking-tighter">ASHABA ADMIN</h1>
-        </div>
-        
-        <nav className="flex flex-col gap-2 flex-1">
-          <NavLink to="/admin" end className={linkClass}>
-            <LayoutDashboard className="h-4 w-4" />
-            Dashboard
-          </NavLink>
-          <NavLink to="/admin/music" className={linkClass}>
-            <Music className="h-4 w-4" />
-            Music
-          </NavLink>
-          <NavLink to="/admin/images" className={linkClass}>
-            <ImageIcon className="h-4 w-4" />
-            Images
-          </NavLink>
-          <NavLink to="/admin/merchandise" className={linkClass}>
-            <Package className="h-4 w-4" />
-            Merchandise
-          </NavLink>
-          <NavLink to="/admin/concerts" className={linkClass}>
-            <Ticket className="h-4 w-4" />
-            Concerts
-          </NavLink>
-          <NavLink to="/admin/bookings" className={linkClass}>
-            <BookOpen className="h-4 w-4" />
-            Bookings
-          </NavLink>
-          <NavLink to="/admin/tickets" className={linkClass}>
-            <ScanLine className="h-4 w-4" />
-            Tickets
-          </NavLink>
-        </nav>
+    <SidebarProvider>
+      <Sidebar variant="inset">
+        <SidebarHeader>
+          <div className="px-2 py-3">
+            <span className="text-sm font-semibold tracking-tight">
+              Ashaba Admin
+            </span>
+          </div>
+        </SidebarHeader>
 
-        <div className="mt-auto pb-8 px-4">
-          <Button 
-            variant="ghost" 
-            className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10 font-bold"
-            onClick={logout}
-          >
-            <LogOut className="mr-2 h-4 w-4" />
-            Logout
-          </Button>
-        </div>
-      </aside>
+        <SidebarContent>
+          <SidebarMenu>
+            {navItems.map(({ to, label, icon: Icon, end }) => (
+              <SidebarMenuItem key={to}>
+                <SidebarMenuButton asChild isActive={
+                  end ? pathname === to : pathname.startsWith(to)
+                }>
+                  <NavLink to={to} end={end}>
+                    <Icon />
+                    <span>{label}</span>
+                  </NavLink>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarContent>
 
-      {/* Main Content */}
-      <main className="flex-1 p-8 overflow-auto">
-        <div className="max-w-6xl mx-auto">
-          <Outlet />
-        </div>
-      </main>
-    </div>
+        <SidebarFooter>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                onClick={logout}
+                className="text-destructive hover:text-destructive hover:bg-destructive/10"
+              >
+                <LogOut />
+                <span>Logout</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
+      </Sidebar>
+
+      <SidebarInset>
+        <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
+          <span className="text-sm font-semibold">{pageTitleFromPath(pathname)}</span>
+        </header>
+
+        <main className="flex-1 overflow-auto p-4">
+            <Outlet />
+        </main>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
