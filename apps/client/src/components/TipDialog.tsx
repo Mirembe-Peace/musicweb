@@ -55,9 +55,9 @@ export default function TipDialog() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          variant="default"
+          variant="destructive"
           size="sm"
-          className="hidden sm:inline-flex rounded-2xl bg-[hsl(var(--brand-red))] hover:bg-[hsl(var(--brand-red))]/90 text-white"
+          className="hidden sm:inline-flex"
         >
           Send Tip
         </Button>
@@ -76,7 +76,6 @@ export default function TipDialog() {
                   key={p}
                   variant={Number(amount) === p ? "default" : "outline"}
                   size="sm"
-                  className="rounded-2xl"
                   onClick={() => setAmount(String(p))}
                 >
                   {p.toLocaleString()}
@@ -93,7 +92,6 @@ export default function TipDialog() {
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               placeholder="Enter amount"
-              className="rounded-2xl"
             />
           </div>
 
@@ -105,7 +103,6 @@ export default function TipDialog() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="rounded-2xl"
             />
           </div>
 
@@ -116,14 +113,13 @@ export default function TipDialog() {
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="256..."
-              className="rounded-2xl"
             />
           </div>
 
           <Button
             onClick={handleSend}
             disabled={loading}
-            className="w-full rounded-2xl"
+            className="w-full"
           >
             {loading ? "Processing..." : `Send UGX ${Number(amount || 0).toLocaleString()}`}
           </Button>

@@ -91,13 +91,12 @@ export default function Gallery() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search gallery…"
-              className="rounded-2xl"
             />
           </div>
 
           <div>
             <Select value={filter} onValueChange={(v) => setFilter(v as Filter)}>
-              <SelectTrigger className="rounded-2xl">
+              <SelectTrigger>
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
@@ -112,13 +111,10 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* Accent bar */}
-        <div className="mt-6 h-2 w-full rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
-
-{/* True Masonry Grid */}
+        {/* Grid */}
 <div className="mt-6">
   {items.length === 0 ? (
-    <Card className="rounded-3xl border bg-card shadow-sm">
+    <Card className="rounded-xl border bg-card shadow-sm">
       <CardContent className="p-6 text-sm text-muted-foreground">
         No gallery items match your search.
       </CardContent>
@@ -147,7 +143,7 @@ export default function Gallery() {
             }
           }}
         >
-          <DialogContent className="w-[96vw] max-w-5xl p-0 overflow-hidden rounded-3xl border">
+          <DialogContent className="sm:max-w-4xl p-0 overflow-hidden">
             <div className="p-5">
               <DialogHeader>
                 <DialogTitle className="text-lg font-black">{activeItem?.title ?? "Preview"}</DialogTitle>
@@ -169,7 +165,6 @@ export default function Gallery() {
                   <Button
                     type="button"
                     variant="secondary"
-                    className="rounded-2xl"
                     onClick={prev}
                     disabled={!activeItem || activeItem.images.length < 2}
                     title="Previous"
@@ -179,7 +174,6 @@ export default function Gallery() {
                   <Button
                     type="button"
                     variant="secondary"
-                    className="rounded-2xl"
                     onClick={next}
                     disabled={!activeItem || activeItem.images.length < 2}
                     title="Next"
@@ -223,7 +217,7 @@ export default function Gallery() {
                       type="button"
                       onClick={() => setActiveIdx(idx)}
                       className={[
-                        "shrink-0 rounded-2xl border overflow-hidden",
+                        "shrink-0 rounded-xl border overflow-hidden",
                         "h-16 w-16",
                         idx === activeIdx ? "ring-2 ring-ring" : "opacity-90 hover:opacity-100",
                       ].join(" ")}
@@ -233,8 +227,6 @@ export default function Gallery() {
                     </button>
                   ))}
                 </div>
-
-                <div className="mt-4 h-2 w-full rounded-full bg-gradient-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
               </div>
             ) : null}
           </DialogContent>

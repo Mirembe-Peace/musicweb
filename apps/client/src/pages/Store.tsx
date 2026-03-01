@@ -123,7 +123,7 @@ export default function Store() {
 
           <Sheet open={cartOpen} onOpenChange={setCartOpen}>
             <SheetTrigger asChild>
-              <Button className="rounded-2xl">
+              <Button>
                 Cart
                 {cartCount > 0 && (
                   <span className="ml-2 inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-secondary px-2 text-xs font-black text-secondary-foreground">
@@ -153,7 +153,6 @@ export default function Store() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search songs, albums or merch…"
-              className="rounded-2xl"
             />
           </div>
 
@@ -163,26 +162,23 @@ export default function Store() {
               onValueChange={(v) => setTab(v as never)}
               className="w-full md:w-auto"
             >
-              <TabsList className="w-full md:w-auto rounded-2xl">
-                <TabsTrigger value="all" className="rounded-2xl">
+              <TabsList className="w-full md:w-auto">
+                <TabsTrigger value="all">
                   All
                 </TabsTrigger>
-                <TabsTrigger value="song" className="rounded-2xl">
+                <TabsTrigger value="song">
                   Songs
                 </TabsTrigger>
-                <TabsTrigger value="album" className="rounded-2xl">
+                <TabsTrigger value="album">
                   Albums
                 </TabsTrigger>
-                <TabsTrigger value="merch" className="rounded-2xl">
+                <TabsTrigger value="merch">
                   Merch
                 </TabsTrigger>
               </TabsList>
             </Tabs>
           </div>
         </div>
-
-        {/* Accent bar */}
-        <div className="mt-6 h-2 w-full rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
 
         {/* Grid */}
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -201,7 +197,7 @@ export default function Store() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="mt-10 rounded-3xl border bg-muted/30 p-6 md:p-8">
+        <div className="mt-10 rounded-xl border bg-muted/30 p-6 md:p-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <div className="text-sm font-extrabold text-foreground">
@@ -215,7 +211,6 @@ export default function Store() {
             <div className="flex gap-3">
             <Button
               variant="secondary"
-              className="rounded-2xl"
               disabled={cartCount === 0}
               title={cartCount === 0 ? "Add items first" : "Open cart"}
               onClick={() => setCartOpen(true)}
@@ -226,8 +221,6 @@ export default function Store() {
               
             </div>
           </div>
-
-          <div className="mt-6 h-2 w-full rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
         </div>
 
         {/* Quick View */}

@@ -1,6 +1,7 @@
 import type { GalleryCategory, GalleryItem } from "@/data/gallery.mock";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { ImageIcon } from "lucide-react";
 
 function categoryLabel(c: GalleryCategory) {
   switch (c) {
@@ -32,7 +33,7 @@ export default function GalleryCard({ item, onOpen }: Readonly<{ item: GalleryIt
     //       : "aspect-16/10";
   
     return (
-      <Card className="rounded-3xl border bg-card shadow-sm overflow-hidden transition hover:-translate-y-0.5">
+      <Card className="rounded-xl border bg-card shadow-sm overflow-hidden transition hover:-translate-y-0.5">
         <button type="button" onClick={onOpen} className="w-full text-left">
           <div className="relative">
             <div className="aspect-16/10 w-full bg-muted overflow-hidden">
@@ -70,9 +71,6 @@ export default function GalleryCard({ item, onOpen }: Readonly<{ item: GalleryIt
                   </div>
                 )}
               </div>
-
-              {/* Accent bar */}
-              <div className="absolute bottom-0 left-0 right-0 h-1 bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
             </div>
           </div>
 
@@ -87,12 +85,11 @@ export default function GalleryCard({ item, onOpen }: Readonly<{ item: GalleryIt
                   <p className="text-sm text-muted-foreground">Tap to view.</p>
                 )}
               </div>
-              <div className="h-10 w-10 rounded-2xl bg-muted grid place-items-center font-black text-foreground/80">
-                ⧉
+              <div className="h-10 w-10 rounded-xl bg-muted grid place-items-center text-foreground/80">
+                <ImageIcon className="h-4 w-4" />
               </div>
             </div>
 
-            <div className="mt-4 h-2 w-full rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
           </CardContent>
         </button>
       </Card>

@@ -66,7 +66,7 @@ const startPayment = async () => {
   };
 
   return (
-    <div className="backdrop-blur-sm bg-white/30 dark:bg-black/30 text-white  flex h-full flex-col">
+    <div className="bg-background text-foreground flex h-full flex-col">
       <div className="p-5">
         <SheetHeader>
           <SheetTitle className="text-xl font-black">Your cart</SheetTitle>
@@ -80,7 +80,6 @@ const startPayment = async () => {
           <Button
             variant="secondary"
             size="sm"
-            className="rounded-2xl"
             onClick={onClear}
             disabled={cart.length === 0}
             title={cart.length === 0 ? "Nothing to clear" : "Clear cart"}
@@ -95,12 +94,12 @@ const startPayment = async () => {
       {/* Items */}
       <div className="flex-1 overflow-auto p-5 space-y-3">
         {cart.length === 0 ? (
-          <div className="rounded-3xl border bg-muted/30 p-6 text-sm text-muted-foreground">
+          <div className="rounded-xl border bg-muted/30 p-6 text-sm text-muted-foreground">
             Add songs, albums, or merch to start checkout.
           </div>
         ) : (
           cart.map((line) => (
-            <div key={line.key} className="rounded-3xl border bg-card p-4">
+            <div key={line.key} className="rounded-xl border bg-card p-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="font-extrabold text-foreground truncate">
@@ -131,7 +130,6 @@ const startPayment = async () => {
                 <Button
                   variant="secondary"
                   size="sm"
-                  className="rounded-2xl"
                   onClick={() => onRemove(line.key)}
                 >
                   Remove
@@ -143,7 +141,6 @@ const startPayment = async () => {
                   <Button
                     variant="secondary"
                     size="sm"
-                    className="rounded-2xl"
                     onClick={() => onDec(line.key)}
                   >
                     −
@@ -154,7 +151,6 @@ const startPayment = async () => {
                   <Button
                     variant="secondary"
                     size="sm"
-                    className="rounded-2xl"
                     onClick={() => onInc(line.key)}
                   >
                     +
@@ -183,7 +179,7 @@ const startPayment = async () => {
           </div>
         </div>
 
-        <div className="rounded-3xl border bg-muted/30 p-4">
+        <div className="rounded-xl border bg-muted/30 p-4">
           <div className="font-black text-foreground">Guest checkout</div>
           <p className="mt-1 text-xs text-muted-foreground">
             Enter details so we can send your receipt + download link (music) or
@@ -192,19 +188,16 @@ const startPayment = async () => {
 
           <div className="mt-3 grid gap-3">
             <Input
-              className="rounded-2xl"
               placeholder="Full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
             <Input
-              className="rounded-2xl"
               placeholder="Email or phone (for Mobile Money)"
               value={emailOrPhone}
               onChange={(e) => setEmailOrPhone(e.target.value)}
             />
             <Input
-              className="rounded-2xl"
               placeholder="Note (optional) e.g. T-shirt size notes"
               value={note}
               onChange={(e) => setNote(e.target.value)}
@@ -213,14 +206,12 @@ const startPayment = async () => {
         </div>
 
         <Button
-          className="w-full rounded-2xl"
+          className="w-full"
           disabled={cart.length === 0 || !emailOrPhone.trim()}
           onClick={startPayment}
         >
           Pay & Checkout
         </Button>
-
-        <div className="h-2 w-full rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
       </div>
     </div>
   );

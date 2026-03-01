@@ -61,7 +61,7 @@ export default function CheckoutDialog({
         </DialogHeader>
 
         <div className="space-y-4 pt-2">
-          <div className="rounded-2xl border bg-muted/30 p-4">
+          <div className="rounded-xl border bg-muted/30 p-4">
             <div className="text-sm font-bold text-muted-foreground">
               Your order
             </div>
@@ -88,7 +88,6 @@ export default function CheckoutDialog({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="rounded-2xl"
             />
           </div>
 
@@ -99,14 +98,13 @@ export default function CheckoutDialog({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="256..."
-              className="rounded-2xl"
             />
           </div>
 
           <Button
             onClick={handlePurchase}
             disabled={loading}
-            className="w-full rounded-2xl"
+            className="w-full"
           >
             {loading ? "Processing..." : `Pay UGX ${total.toLocaleString()}`}
           </Button>

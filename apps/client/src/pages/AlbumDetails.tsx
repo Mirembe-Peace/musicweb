@@ -32,7 +32,7 @@ export default function AlbumDetails() {
     return (
       <Container>
         <div className="py-12">
-          <Card className="rounded-3xl border bg-card shadow-sm">
+          <Card className="rounded-xl border bg-card shadow-sm">
             <CardContent className="p-6">
               <div className="font-black text-xl text-foreground">Album not found</div>
               <p className="mt-2 text-sm text-muted-foreground">
@@ -40,7 +40,7 @@ export default function AlbumDetails() {
               </p>
 
               <div className="mt-5">
-                <Button asChild variant="secondary" className="rounded-2xl">
+                <Button asChild variant="secondary">
                   <Link to="/music">Back to Music</Link>
                 </Button>
               </div>
@@ -80,7 +80,7 @@ export default function AlbumDetails() {
 
         <div className="grid gap-6 lg:grid-cols-5">
           {/* Tracklist */}
-          <Card className="lg:col-span-3 rounded-3xl border bg-card shadow-sm overflow-hidden">
+          <Card className="lg:col-span-3 rounded-xl border bg-card shadow-sm overflow-hidden">
             <CardHeader className="p-6 pb-4">
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -93,14 +93,11 @@ export default function AlbumDetails() {
 
                 <Button
                   variant="secondary"
-                  className="rounded-2xl"
                   onClick={() => handleBuy(album.title, 50000)} // Example album price
                 >
                   Buy Album
                 </Button>
               </div>
-
-              <div className="mt-4 h-2 w-full rounded-full bg-gradient-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
             </CardHeader>
 
             <Separator />
@@ -129,14 +126,12 @@ export default function AlbumDetails() {
                       <div className="flex gap-2">
                         <Button
                           variant="outline"
-                          className="rounded-2xl"
                           disabled
                           title="Preview will be enabled soon"
                         >
                           Preview
                         </Button>
                         <Button
-                          className="rounded-2xl"
                           onClick={() => handleBuy(t.title, t.priceUGX)}
                         >
                           Buy
@@ -151,7 +146,7 @@ export default function AlbumDetails() {
 
           {/* Sidebar */}
           <div className="lg:col-span-2 space-y-4">
-            <Card className="rounded-3xl border bg-card shadow-sm">
+            <Card className="rounded-xl border bg-card shadow-sm">
               <CardContent className="p-6">
                 <div className="font-black text-lg text-foreground">Support the music</div>
                 <p className="mt-2 text-sm text-muted-foreground">
@@ -159,14 +154,14 @@ export default function AlbumDetails() {
                 </p>
 
                 <div className="mt-4 flex gap-2">
-                  <Button asChild variant="secondary" className="rounded-2xl w-full">
+                  <Button asChild variant="secondary" className="w-full">
                     <Link to="/store">Go to Store</Link>
                   </Button>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="rounded-3xl border bg-muted/30 shadow-sm">
+            <Card className="rounded-xl border bg-muted/30 shadow-sm">
               <CardContent className="p-6">
                 <div className="font-black text-lg text-foreground">Bookings</div>
                 <p className="mt-2 text-sm text-muted-foreground">
@@ -175,7 +170,7 @@ export default function AlbumDetails() {
                 </p>
 
                 <div className="mt-4">
-                  <Button asChild className="rounded-2xl w-full">
+                  <Button asChild className="w-full">
                     <Link to="/bookings">Request Booking</Link>
                   </Button>
                 </div>

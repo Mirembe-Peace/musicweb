@@ -4,9 +4,9 @@ import { useAuth } from "@/app/AuthContext";
 import { Button } from "@/components/ui/button";
 
 const linkClass = ({ isActive }: { isActive: boolean }) =>
-  `flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold transition-all ${
+  `flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-bold transition-all ${
     isActive 
-      ? "bg-primary text-primary-foreground shadow-brand scale-[1.02]" 
+      ? "bg-primary text-primary-foreground shadow-md" 
       : "text-muted-foreground hover:bg-muted hover:text-foreground"
   }`;
 
@@ -16,9 +16,9 @@ export default function AdminLayout() {
   return (
     <div className="flex min-h-screen bg-muted/30">
       {/* Sidebar */}
-      <aside className="w-64 border-r bg-card h-screen sticky top-0 flex flex-col pt-8 px-4 shadow-soft">
+      <aside className="w-64 border-r bg-card h-screen sticky top-0 flex flex-col pt-8 px-4 shadow-sm">
         <div className="mb-10 px-4 flex items-center gap-3">
-          <div className="h-6 w-6 rounded-full bg-gradient-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
+          <div className="h-6 w-6 rounded-full bg-primary" />
           <h1 className="text-xl font-black tracking-tighter">ASHABA ADMIN</h1>
         </div>
         
@@ -56,7 +56,7 @@ export default function AdminLayout() {
         <div className="mt-auto pb-8 px-4">
           <Button 
             variant="ghost" 
-            className="w-full justify-start rounded-2xl text-destructive hover:text-destructive hover:bg-destructive/10 font-bold"
+            className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10 font-bold"
             onClick={logout}
           >
             <LogOut className="mr-2 h-4 w-4" />

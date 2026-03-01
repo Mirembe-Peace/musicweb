@@ -69,7 +69,7 @@ export default function TicketPurchaseDialog({
         </DialogHeader>
 
         <div className="space-y-4 pt-2">
-          <div className="rounded-2xl border bg-muted/30 p-4">
+          <div className="rounded-xl border bg-muted/30 p-4">
             <div className="font-black text-lg">{concert.title}</div>
             <div className="mt-1 text-sm text-muted-foreground">
               {concert.dateTime} &bull; {concert.location}
@@ -86,7 +86,6 @@ export default function TicketPurchaseDialog({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Your full name"
-              className="rounded-2xl"
             />
           </div>
 
@@ -98,7 +97,6 @@ export default function TicketPurchaseDialog({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="your@email.com"
-              className="rounded-2xl"
             />
           </div>
 
@@ -109,14 +107,13 @@ export default function TicketPurchaseDialog({
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
               placeholder="256..."
-              className="rounded-2xl"
             />
           </div>
 
           <Button
             onClick={handlePurchase}
             disabled={loading}
-            className="w-full rounded-2xl"
+            className="w-full"
           >
             {loading
               ? "Processing..."

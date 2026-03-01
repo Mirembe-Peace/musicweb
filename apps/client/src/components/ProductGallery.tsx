@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Button } from "@/components/ui/button";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function ProductGallery({
   images,
@@ -24,7 +25,7 @@ export default function ProductGallery({
               type="button"
               onClick={() => setActive(idx)}
               className={[
-                "relative shrink-0 rounded-2xl border overflow-hidden",
+                "relative shrink-0 rounded-xl border overflow-hidden",
                 "h-16 w-16 md:h-20 md:w-20",
                 idx === active ? "ring-2 ring-ring" : "opacity-90 hover:opacity-100",
               ].join(" ")}
@@ -43,7 +44,7 @@ export default function ProductGallery({
 
       {/* Main image */}
       <div className="order-1 md:order-2">
-        <div className="relative overflow-hidden rounded-3xl border bg-muted">
+        <div className="relative overflow-hidden rounded-xl border bg-muted">
           <div className="aspect-square md:aspect-4/3">
             <img
               src={main}
@@ -53,9 +54,6 @@ export default function ProductGallery({
             />
           </div>
 
-          {/* Cultural accent */}
-          <div className="absolute bottom-0 left-0 right-0 h-2 bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
-
           {/* Next/Prev for mobile quick taps */}
           {safe.length > 1 && (
             <div className="absolute inset-x-3 top-3 flex justify-between">
@@ -63,19 +61,17 @@ export default function ProductGallery({
                 type="button"
                 size="sm"
                 variant="secondary"
-                className="rounded-2xl"
                 onClick={() => setActive((p) => (p - 1 + safe.length) % safe.length)}
               >
-                ←
+                <ChevronLeft className="h-4 w-4" />
               </Button>
               <Button
                 type="button"
                 size="sm"
                 variant="secondary"
-                className="rounded-2xl"
                 onClick={() => setActive((p) => (p + 1) % safe.length)}
               >
-                →
+                <ChevronRight className="h-4 w-4" />
               </Button>
             </div>
           )}

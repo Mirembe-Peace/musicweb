@@ -9,7 +9,7 @@ export default function BrandFooter() {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-2xl bg-primary text-primary-foreground grid place-items-center font-black">
+              <div className="h-10 w-10 rounded-xl bg-primary text-primary-foreground grid place-items-center font-black">
                 A
               </div>
               <div>
@@ -20,8 +20,6 @@ export default function BrandFooter() {
             <p className="mt-3 text-sm text-muted-foreground max-w-sm">
               Showcasing culture through music — albums, singles, visuals, and live performances.
             </p>
-
-            <div className="mt-4 h-2 w-40 rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
           </div>
 
           {/* Links */}

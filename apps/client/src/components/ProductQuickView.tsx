@@ -45,7 +45,7 @@ export default function ProductQuickView({
   
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className="max-w-4xl rounded-3xl p-0 overflow-hidden">
+        <DialogContent className="sm:max-w-3xl p-0 overflow-hidden">
           <div className="p-5">
             <DialogHeader>
               <DialogTitle className="text-xl font-black">{item.title}</DialogTitle>
@@ -77,7 +77,7 @@ export default function ProductQuickView({
   
             <div className="space-y-4">
               {!!item.variants?.length && (
-                <div className="rounded-3xl border bg-muted/30 p-4">
+                <div className="rounded-xl border bg-muted/30 p-4">
                   <div className="font-black text-foreground">Choose options</div>
                   <div className="mt-3 grid gap-3">
                     {item.variants.map((v) => (
@@ -90,7 +90,7 @@ export default function ProductQuickView({
                           value={selected[v.name] ?? ""}
                           onValueChange={(val) => onChangeSelected({ ...selected, [v.name]: val })}
                         >
-                          <SelectTrigger className="mt-2 rounded-2xl">
+                          <SelectTrigger className="mt-2">
                             <SelectValue placeholder={`Select ${v.name}`} />
                           </SelectTrigger>
                           <SelectContent>
@@ -108,20 +108,18 @@ export default function ProductQuickView({
                 </div>
               )}
   
-              <div className="rounded-3xl border bg-card p-4">
+              <div className="rounded-xl border bg-card p-4">
                 <div className="text-xs font-bold text-muted-foreground">Price</div>
                 <div className="mt-1 text-2xl font-black text-foreground">{formatUGX(unit)}</div>
   
                 <Button
-                  className="mt-4 w-full rounded-2xl"
+                  className="mt-4 w-full"
                   onClick={onAdd}
                   disabled={missingRequired}
                   title={missingRequired ? "Please select required options" : "Add to cart"}
                 >
                   Add to cart
                 </Button>
-  
-                <div className="mt-4 h-2 w-full rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
               </div>
   
               <div className="rounded-3xl border bg-muted/30 p-4">

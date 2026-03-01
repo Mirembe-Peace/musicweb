@@ -24,14 +24,14 @@ export default function SocialPage() {
           <img
             src="/ashaba.png"
             alt="Ashaba"
-            className="w-24 h-24 mx-auto rounded-full object-cover mb-4 ring-2 ring-zinc-200 dark:ring-zinc-800"
+            className="w-24 h-24 mx-auto rounded-full object-cover mb-4 ring-2 ring-border"
           />
 
-            <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+            <h1 className="text-2xl font-bold text-foreground">
             Ashaba
             </h1>
 
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
+          <p className="text-sm text-muted-foreground mt-1">
             Music • Culture • Expression
           </p>
         </div>
@@ -44,7 +44,7 @@ export default function SocialPage() {
         </div>
 
         {/* Footer */}
-        <p className="mt-10 text-center text-xs text-zinc-500 dark:text-zinc-500">
+        <p className="mt-10 text-center text-xs text-muted-foreground">
           © {new Date().getFullYear()} AshabaMusic
         </p>
       </div>

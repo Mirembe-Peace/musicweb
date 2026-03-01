@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import { ExternalLink } from "lucide-react";
 
 import { toast } from "sonner";
 import VideoCard from "@/components/VideoCard";
@@ -96,12 +97,11 @@ export default function Videos() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search videos…"
-              className="rounded-2xl"
             />
           </div>
           <div>
             <Select value={platform} onValueChange={(v) => setPlatform(v as PlatformFilter)}>
-              <SelectTrigger className="rounded-2xl">
+              <SelectTrigger>
                 <SelectValue placeholder="Platform" />
               </SelectTrigger>
               <SelectContent>
@@ -113,13 +113,10 @@ export default function Videos() {
           </div>
         </div>
 
-        {/* Accent bar */}
-        <div className="mt-6 h-2 w-full rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
-
         {/* Grid */}
         <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {items.length === 0 ? (
-            <Card className="sm:col-span-2 lg:col-span-3 rounded-3xl border bg-card shadow-sm">
+            <Card className="sm:col-span-2 lg:col-span-3 rounded-xl border bg-card shadow-sm">
               <CardContent className="p-6 text-sm text-muted-foreground">
                 No videos match your search.
               </CardContent>
@@ -150,7 +147,7 @@ export default function Videos() {
             }
           }}
         >
-          <DialogContent className="p-0 overflow-hidden rounded-3xl border w-[96vw] max-w-[96vw] h-[90vh]">
+          <DialogContent className="p-0 overflow-hidden sm:max-w-5xl">
             <div className="p-5">
               <DialogHeader>
                 <DialogTitle className="text-lg font-black">{active?.title}</DialogTitle>
@@ -169,13 +166,14 @@ export default function Videos() {
 
                 <div className="ml-auto flex flex-wrap gap-2">
                   {active?.url && (
-                    <Button variant="secondary" className="rounded-2xl" onClick={() => copyLink(active.url)}>
+                    <Button variant="secondary" onClick={() => copyLink(active.url)}>
                       Copy link
                     </Button>
                   )}
                   {active?.url && (
-                    <Button asChild className="rounded-2xl">
+                    <Button asChild>
                       <a href={active.url} target="_blank" rel="noreferrer">
+                        <ExternalLink className="h-4 w-4 mr-1" />
                         Open
                       </a>
                     </Button>
@@ -188,7 +186,7 @@ export default function Videos() {
 
             <div className="bg-black flex-1">
               {embedUrl ? (
-                <div className="relative w-full h-[calc(90vh-140px)]">
+                <div className="relative w-full aspect-video">
                   <iframe
                     className="absolute inset-0 h-full w-full"
                     src={embedUrl}
@@ -203,8 +201,6 @@ export default function Videos() {
                 </div>
               )}
             </div>
-
-            <div className="h-2 w-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
           </DialogContent>
         </Dialog>
       </div>

@@ -22,12 +22,9 @@ export default function SocialLinkCard({
       rel="noopener noreferrer"
       className={cn(
         "group flex items-center gap-4 rounded-xl px-5 py-4",
-        "border transition-all duration-300",
-        "hover:scale-[1.02] hover:shadow-lg",
-        // Light
-        "bg-white/80 border-zinc-200 text-zinc-900",
-        // Dark
-        "dark:bg-zinc-900/70 dark:border-zinc-800 dark:text-white"
+        "border transition-all duration-200",
+        "hover:shadow-md",
+        "bg-card border-border text-card-foreground"
       )}
       style={{ borderLeft: `4px solid ${color}` }}
     >

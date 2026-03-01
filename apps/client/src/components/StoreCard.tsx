@@ -2,6 +2,7 @@ import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
+import { Music, Disc, Package } from "lucide-react";
 import type { StoreCategory, StoreItem } from "@/data/store.mock";
 function formatUGX(n: number) {
     return `UGX ${n.toLocaleString()}`;
@@ -25,11 +26,11 @@ function StoreCard({
   const primary = item.images?.[0];
 
   return (
-    <Card className="rounded-3xl border bg-card shadow-sm overflow-hidden">
+    <Card className="rounded-xl border bg-card shadow-sm overflow-hidden">
       <CardContent className="p-6">
         {/* Image */}
         <button type="button" onClick={onView} className="w-full text-left">
-          <div className="mb-4 overflow-hidden rounded-3xl border bg-muted">
+          <div className="mb-4 overflow-hidden rounded-xl border bg-muted">
             <div className="aspect-16/10">
               {primary ? (
                 <img src={primary} alt={item.title} className="h-full w-full object-cover" loading="lazy" />
@@ -69,8 +70,8 @@ function StoreCard({
             )}
           </div>
 
-          <div className="h-12 w-12 rounded-2xl bg-muted grid place-items-center font-black text-foreground/80">
-            {item.category === "song" ? "♪" : item.category === "album" ? "◎" : "✦"}
+          <div className="h-12 w-12 rounded-xl bg-muted grid place-items-center text-foreground/80">
+            {item.category === "song" ? <Music className="h-5 w-5" /> : item.category === "album" ? <Disc className="h-5 w-5" /> : <Package className="h-5 w-5" />}
           </div>
         </div>
 
@@ -83,16 +84,14 @@ function StoreCard({
           </div>
 
           <div className="flex gap-2">
-            <Button variant="secondary" className="rounded-2xl" onClick={onView}>
+            <Button variant="secondary" onClick={onView}>
               View
             </Button>
-            <Button className="rounded-2xl" onClick={onAdd}>
+            <Button onClick={onAdd}>
               Add
             </Button>
           </div>
         </div>
-
-        <div className="mt-5 h-2 w-full rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
       </CardContent>
     </Card>
   );

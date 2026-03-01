@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import BrandHeader from "@/components/BrandHeader";
 import BrandFooter from "@/components/BrandFooter";
+import MusicPlayer from "@/components/MusicPlayer";
 
 export default function PublicLayout() {
   return (
@@ -10,6 +11,7 @@ export default function PublicLayout() {
         <Outlet />
       </main>
       <BrandFooter />
+      <MusicPlayer />
     </div>
   );
 }

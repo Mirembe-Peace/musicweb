@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
@@ -35,7 +36,7 @@ export default function BrandHeader() {
   const { brandName, tagline, nav, promo } = useSiteConfig();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-backdrop-filter:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur-sm supports-[backdrop-filter]:bg-background/80">
       {/* Promo strip (mobile-first, compact) */}
       {promo.enabled && (
         <div className="border-b bg-muted/40">
@@ -63,7 +64,7 @@ export default function BrandHeader() {
         <div className="h-16 flex items-center justify-between gap-3">
           {/* Brand */}
           <Link to="/" className="flex items-center gap-3 min-w-0">
-            <div className="h-10 w-10 rounded-2xl bg-primary text-primary-foreground grid place-items-center font-black shadow-sm">
+            <div className="h-10 w-10 rounded-xl bg-primary text-primary-foreground grid place-items-center font-black shadow-sm">
               A
             </div>
             <div className="min-w-0 leading-tight">
@@ -102,17 +103,17 @@ export default function BrandHeader() {
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="outline" size="icon" aria-label="Open menu">
-                    ☰
+                    <Menu className="h-4 w-4" />
                   </Button>
                 </SheetTrigger>
 
                 <SheetContent
                   side="right"
-                  className="backdrop-blur-sm bg-white/30 dark:bg-black/30 text-white p-6 w-[320px] sm:w-[360px]"
+                  className="p-6 w-[320px] sm:w-[360px]"
                 >
                   <SheetHeader>
-                    <SheetTitle className="flex items-center gap-2">
-                      <span className="h-8 w-8 rounded-xl bg-primary text-primary-foreground grid place-items-center font-black">
+                    <SheetTitle className="flex items-center gap-2 text-foreground">
+                      <span className="h-8 w-8 rounded-lg bg-primary text-primary-foreground grid place-items-center font-black">
                         A
                       </span>
                       {brandName}
@@ -123,11 +124,11 @@ export default function BrandHeader() {
 
                   {/* Promo (inside mobile menu too) */}
                   {promo.enabled && (
-                    <div className="rounded-2xl border bg-muted/40 p-4">
+                    <div className="rounded-xl border bg-muted/40 p-4">
                       <div className="text-xs font-bold text-muted-foreground">
                         Featured
                       </div>
-                      <div className="mt-1 font-extrabold">{promo.text}</div>
+                      <div className="mt-1 font-extrabold text-foreground">{promo.text}</div>
                       <Button
                         className="mt-3 w-full"
                         variant="secondary"
@@ -135,8 +136,6 @@ export default function BrandHeader() {
                       >
                         <Link to={promo.ctaTo}>{promo.ctaLabel}</Link>
                       </Button>
-
-                      <div className="mt-4 h-2 w-full rounded-full bg-gradient-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
                     </div>
                   )}
 

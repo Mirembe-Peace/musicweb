@@ -98,7 +98,7 @@ export default function Bookings() {
 
         <div className="grid gap-6 lg:grid-cols-5">
           {/* Form */}
-          <div className="lg:col-span-3 rounded-3xl border bg-card p-6 shadow-sm">
+          <div className="lg:col-span-3 rounded-xl border bg-card p-6 shadow-sm">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
                 <div className="grid gap-4 sm:grid-cols-2">
@@ -245,18 +245,16 @@ export default function Bookings() {
 
           {/* Sidebar */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="rounded-3xl border bg-card p-6 shadow-sm">
+            <div className="rounded-xl border bg-card p-6 shadow-sm">
               <div className="font-black text-lg">What happens next?</div>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
                 <li>• We confirm availability for your date.</li>
                 <li>• We share pricing + performance options.</li>
                 <li>• You receive a confirmation & booking details.</li>
               </ul>
-
-              <div className="mt-5 h-2 w-full rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
             </div>
 
-            <div className="rounded-3xl border bg-card p-6 shadow-sm">
+            <div className="rounded-xl border bg-card p-6 shadow-sm">
               <div className="font-black text-lg">Direct contact</div>
               <div className="mt-3 text-sm text-muted-foreground">
                 Email: bookings@ashabamusic.com <br />

@@ -38,7 +38,7 @@ export default function ConcertPopup() {
             exit={{ opacity: 0, scale: 0.9, y: 50 }}
             className="fixed bottom-6 right-6 z-50 w-full max-w-sm"
           >
-            <Card className="rounded-3xl border shadow-2xl bg-card overflow-hidden">
+            <Card className="rounded-xl border shadow-lg bg-card overflow-hidden">
               <Button
                 variant="ghost"
                 size="sm"
@@ -77,7 +77,7 @@ export default function ConcertPopup() {
                 </div>
 
                 <Button
-                  className="w-full rounded-2xl h-12 font-bold shadow-brand"
+                  className="w-full h-12 font-bold"
                   onClick={() => {
                     setTicketDialogOpen(true);
                     setIsOpen(false);
@@ -86,7 +86,6 @@ export default function ConcertPopup() {
                   Buy Tickets Now
                 </Button>
               </CardContent>
-              <div className="h-1.5 w-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
             </Card>
           </motion.div>
         )}

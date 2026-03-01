@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAudio } from '@/app/AudioContext';
 import { toast } from 'sonner';
-import { Loader2, Play, Pause } from 'lucide-react';
+import { Loader2, Play, Pause, Disc } from 'lucide-react';
 import { api } from '@/lib/api';
 import CheckoutDialog from '@/components/CheckoutDialog';
 
@@ -126,7 +126,7 @@ export default function Music() {
           />
 
           {upcoming?.id && (
-            <div className="rounded-3xl border bg-muted/30 p-4 md:max-w-sm">
+            <div className="rounded-xl border bg-muted/30 p-4 md:max-w-sm">
               <div className="text-xs font-bold text-muted-foreground">
                 Upcoming
               </div>
@@ -138,7 +138,6 @@ export default function Music() {
                   asChild
                   size="sm"
                   variant="secondary"
-                  className="rounded-2xl"
                 >
                   <Link to={`/albums/${upcoming.id}`}>View details</Link>
                 </Button>
@@ -154,7 +153,6 @@ export default function Music() {
               value={q}
               onChange={(e) => setQ(e.target.value)}
               placeholder="Search albums or tracks..."
-              className="rounded-2xl"
             />
           </div>
 
@@ -163,7 +161,7 @@ export default function Music() {
               value={status}
               onValueChange={(v) => setStatus(v as StatusFilter)}
             >
-              <SelectTrigger className="rounded-2xl">
+              <SelectTrigger>
                 <SelectValue placeholder="Filter" />
               </SelectTrigger>
               <SelectContent>
@@ -208,7 +206,7 @@ export default function Music() {
 
             <div className="mt-4 grid gap-3">
               {singles.length === 0 ? (
-                <Card className="rounded-3xl border bg-card shadow-sm">
+                <Card className="rounded-xl border bg-card shadow-sm">
                   <CardContent className="p-6 text-sm text-muted-foreground">
                     No singles match your search.
                   </CardContent>
@@ -217,7 +215,7 @@ export default function Music() {
                 singles.map((s, idx) => (
                   <Card
                     key={s.id}
-                    className="rounded-3xl border bg-card shadow-sm"
+                    className="rounded-xl border bg-card shadow-sm"
                   >
                     <CardContent className="p-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                       <div className="min-w-0">
@@ -244,7 +242,7 @@ export default function Music() {
                         <div className="flex gap-2">
                           <Button
                             variant="outline"
-                            className="rounded-2xl min-w-[100px]"
+                            className="min-w-[100px]"
                             onClick={() => {
                               const previewSrc = s.previewUrl || `/songs/${s.title.toLowerCase().replace(/ /g, '_')}.mp3`;
                               toggle(s.id, previewSrc);
@@ -260,7 +258,7 @@ export default function Music() {
                             {currentSongId === s.id && isPlaying ? "Pause" : "Preview"}
                           </Button>
                           <Button
-                            className="flex-1 rounded-2xl"
+                            className="flex-1"
                             onClick={() => handleBuy(s)}
                           >
                             Buy (UGX {Number(s.price || 5000).toLocaleString()})
@@ -272,8 +270,6 @@ export default function Music() {
                 ))
               )}
             </div>
-
-            <div className="mt-5 h-2 w-full rounded-full bg-gradient-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
           </div>
         )}
 
@@ -290,7 +286,7 @@ export default function Music() {
             <div className="mt-4 grid gap-5 sm:grid-cols-2">
               {filteredAlbums.map((a) => (
                 <Link key={a.id} to={`/albums/${a.id}`} className="block">
-                  <Card className="rounded-3xl border bg-card shadow-sm transition hover:-translate-y-0.5">
+                  <Card className="rounded-xl border bg-card shadow-sm transition hover:-translate-y-0.5">
                     <CardContent className="p-6">
                       <div className="flex items-start justify-between gap-4">
                         <div className="min-w-0">
@@ -308,13 +304,12 @@ export default function Music() {
                           </div>
                         </div>
 
-                        <div className="h-12 w-12 rounded-2xl bg-muted grid place-items-center font-black text-foreground/80">
-                          &#9835;
+                        <div className="h-12 w-12 rounded-xl bg-muted grid place-items-center text-foreground/80">
+                          <Disc className="h-5 w-5" />
                         </div>
                       </div>
 
                       <div className="mt-6 flex items-center justify-between">
-                        <div className="h-2 w-24 rounded-full bg-gradient-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
                         <Button
                           variant="link"
                           className="px-0 font-extrabold text-primary"
@@ -331,7 +326,7 @@ export default function Music() {
         )}
 
         {/* CTA */}
-        <div className="mt-10 rounded-3xl border bg-muted/30 p-6 md:p-8">
+        <div className="mt-10 rounded-xl border bg-muted/30 p-6 md:p-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
               <div className="text-sm font-extrabold text-foreground">
@@ -344,16 +339,14 @@ export default function Music() {
             </div>
 
             <div className="flex gap-3">
-              <Button asChild className="rounded-2xl">
+              <Button asChild>
                 <Link to="/store">Go to Store</Link>
               </Button>
-              <Button asChild variant="secondary" className="rounded-2xl">
+              <Button asChild variant="secondary">
                 <Link to="/bookings">Book Ashaba</Link>
               </Button>
             </div>
           </div>
-
-          <div className="mt-6 h-2 w-full rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
         </div>
       </div>
 

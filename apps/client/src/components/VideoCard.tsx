@@ -5,6 +5,7 @@ import { toThumbnailUrl } from "@/lib/video";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Play, Copy, Maximize2 } from "lucide-react";
 
 import InlineVideoPlayer, { type InlineVideoPlayerHandle } from "@/components/InlineVideoPlayer";
 
@@ -26,7 +27,7 @@ export default function VideoCard({
   const thumb = toThumbnailUrl(item.url);
 
   return (
-    <Card className="rounded-3xl border bg-card shadow-sm overflow-hidden transition hover:-translate-y-0.5">
+    <Card className="rounded-xl border bg-card shadow-sm overflow-hidden transition hover:-translate-y-0.5">
       {/* Thumbnail or inline player */}
       <div className="relative">
         <div className="aspect-video bg-muted">
@@ -40,7 +41,7 @@ export default function VideoCard({
             <img src={thumb} alt={item.title} className="h-full w-full object-cover" loading="lazy" />
           ) : (
             <div className="h-full w-full grid place-items-center">
-              <div className="rounded-2xl border bg-background/70 px-4 py-2 text-sm font-extrabold">
+              <div className="rounded-xl border bg-background/70 px-4 py-2 text-sm font-extrabold">
                 {item.platform === "vimeo" ? "Vimeo video" : "Video"}
               </div>
             </div>
@@ -55,12 +56,8 @@ export default function VideoCard({
             className="absolute inset-0 grid place-items-center"
             aria-label="Play video"
           >
-            <div className="relative">
-              <span className="absolute inset-0 -m-5 rounded-full bg-[hsl(var(--brand-red))]/20 animate-ping" />
-              <span className="absolute inset-0 -m-8 rounded-full bg-[hsl(var(--brand-red))]/10 animate-ping [animation-delay:250ms]" />
-              <div className="relative h-14 w-14 rounded-2xl bg-[hsl(var(--brand-red))] grid place-items-center shadow-sm">
-                <span className="text-white text-2xl leading-none">▶</span>
-              </div>
+            <div className="h-14 w-14 rounded-xl bg-destructive grid place-items-center shadow-md">
+              <Play className="h-6 w-6 text-white fill-white" />
             </div>
           </button>
         )}
@@ -82,8 +79,8 @@ export default function VideoCard({
               </p>
             )}
           </div>
-          <div className="h-10 w-10 rounded-2xl bg-muted grid place-items-center font-black text-foreground/80">
-            ▶
+          <div className="h-10 w-10 rounded-xl bg-muted grid place-items-center text-foreground/80">
+            <Play className="h-4 w-4" />
           </div>
         </div>
 
@@ -104,13 +101,13 @@ export default function VideoCard({
               type="button"
               variant="secondary"
               size="sm"
-              className="rounded-2xl"
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 onCopy();
               }}
             >
+              <Copy className="h-3.5 w-3.5 mr-1" />
               Copy
             </Button>
 
@@ -120,7 +117,6 @@ export default function VideoCard({
                 type="button"
                 variant="secondary"
                 size="sm"
-                className="rounded-2xl"
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
@@ -128,11 +124,10 @@ export default function VideoCard({
                 }}
                 title="Cinematic view"
               >
-                ⤢
+                <Maximize2 className="h-3.5 w-3.5 mr-1" />
+                Expand
               </Button>
             )}
-
-            <div className="h-2 w-10 rounded-full bg-linear-to-r from-[hsl(var(--brand-green))] via-[hsl(var(--brand-yellow))] to-[hsl(var(--brand-red))]" />
           </div>
         </div>
       </CardContent>
