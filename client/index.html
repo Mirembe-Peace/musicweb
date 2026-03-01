@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/ashaba.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ashabamusic</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+      import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+    
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyBwsUbW4cSlO3uyv78slQX93Z8xJ-6BXJ4",
+        authDomain: "ashabamusicug.firebaseapp.com",
+        projectId: "ashabamusicug",
+        storageBucket: "ashabamusicug.firebasestorage.app",
+        messagingSenderId: "683674583629",
+        appId: "1:683674583629:web:88c9a3a64e9b792f709204",
+        measurementId: "G-5ZVNK7Y6C0"
+      };
+    
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+    </script>
+  </body>
+</html>
