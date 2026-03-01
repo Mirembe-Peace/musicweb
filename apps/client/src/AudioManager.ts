@@ -1,5 +1,5 @@
 // src/AudioManager.ts
-import { audioLibrary, AudioAsset } from "./AudioLibrary";
+import { audioLibrary } from "./AudioLibrary";
 
 class AudioManager {
   private audioElements: Record<string, HTMLAudioElement> = {};

@@ -1,24 +1,34 @@
 import { NestFactory } from '@nestjs/core';
+import { ConfigService } from '@nestjs/config';
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule); //initializes the nestjs application with AppModule as the root
+  const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService);
+  const logger = new Logger('Bootstrap');
+
+  // CORS — read allowed origins from env, comma-separated
+  const corsOrigins = configService.get<string>('CORS_ORIGINS', 'http://localhost:5173');
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: corsOrigins.split(',').map((o) => o.trim()),
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
 
+  // Global validation pipe for DTOs
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      transform: true,
+    }),
+  );
+
   app.setGlobalPrefix('api');
 
-  await app.listen(3000);
+  const port = configService.get<number>('PORT', 3000);
+  await app.listen(port);
+  logger.log(`Server running on port ${port}`);
 }
 
 bootstrap();
-
-//entry point for the entire node.js application like index.html in the front end
-
-//when the app is deployed
-//node.js process starts and executes this file first
-//the async bootstrap function creates the application instance
-//then the server binds to the specified port and waits for http requests 

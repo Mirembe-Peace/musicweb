@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PaymentsModule } from './payments/payments.module';
@@ -13,15 +13,20 @@ import { MerchandiseModule } from './merchandise/merchandise.module';
 import { MediaModule } from './media/media.module';
 import { AuthModule } from './auth/auth.module';
 import { ConcertsModule } from './concerts/concerts.module';
+import { PurchasesModule } from './purchases/purchases.module';
+import { EmailModule } from './email/email.module';
+import { PaymentsService } from './payments/payments.service';
+import { PurchasesService } from './purchases/purchases.service';
+import { TicketsService } from './tickets/tickets.service';
 
 @Module({
-  imports: [ //other modules that this module depends on
-    ConfigModule.forRoot({ isGlobal: true }),// makes the env vars accessible in the whole app
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: typeOrmConfig,
-    }), //establishes database connection
+    }),
     PaymentsModule,
     TicketsModule,
     BookingsModule,
@@ -31,17 +36,22 @@ import { ConcertsModule } from './concerts/concerts.module';
     MediaModule,
     AuthModule,
     ConcertsModule,
+    PurchasesModule,
+    EmailModule,
   ],
-  controllers: [AppController], //endpoints exposed by this module where the frontend accesses the backend
-  providers: [AppService], //services that can be injected anywhere in this module
+  controllers: [AppController],
+  providers: [AppService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(
+    private readonly paymentsService: PaymentsService,
+    private readonly purchasesService: PurchasesService,
+    private readonly ticketsService: TicketsService,
+  ) {}
 
-
-//the root module (dependency container)
-//acts like the app.tsx root module that starts the whole application
-//imports the global modules that are used throughout the app
-//setsup the database connection asynchronously using env vars
-//declares controllers and services available at the root level
-//imports the feature modules (paymentsmodule, ticketsmodule)
-
+  onModuleInit() {
+    // Wire up circular dependencies for IPN post-payment routing
+    this.paymentsService.setPurchasesService(this.purchasesService);
+    this.paymentsService.setTicketsService(this.ticketsService);
+  }
+}

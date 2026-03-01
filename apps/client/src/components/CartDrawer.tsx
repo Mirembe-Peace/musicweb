@@ -41,15 +41,18 @@ export default function CartDrawer({
 
  
 const startPayment = async () => {
+    if (!emailOrPhone.trim()) {
+      alert("Please enter your email or phone number");
+      return;
+    }
     try {
       const data = await initiatePayment({
-        amount: 5000,
+        amount: subtotal,
         currency: "UGX",
-        description: "Concert Ticket",
-        email: "test@gmail.com",
-        phoneNumber: "0700000000",
-        callbackUrl: "http://localhost:5173/payment-success",
-        notification_id: "00751bba-2b4e-41f5-b2ed-dabe8e8e4d4d",
+        description: `Store purchase (${cart.length} item(s))`,
+        email: emailOrPhone.includes("@") ? emailOrPhone : "",
+        phoneNumber: emailOrPhone.includes("@") ? "" : emailOrPhone,
+        callbackUrl: `${window.location.origin}/payment-success`,
       });
 
       if (data.redirect_url) {
@@ -57,15 +60,10 @@ const startPayment = async () => {
       } else {
         alert("Failed to initiate payment");
       }
-    } catch (err) {
-      console.error(err);
+    } catch {
       alert("Error initiating payment. Please try again.");
     }
   };
-
-  //const disabledCheckout =
-   // cart.length === 0 || !name.trim() || !emailOrPhone.trim();
-
 
   return (
     <div className="backdrop-blur-sm bg-white/30 dark:bg-black/30 text-white  flex h-full flex-col">
@@ -216,7 +214,7 @@ const startPayment = async () => {
 
         <Button
           className="w-full rounded-2xl"
-          // disabled={disabledCheckout}
+          disabled={cart.length === 0 || !emailOrPhone.trim()}
           onClick={startPayment}
         >
           Pay & Checkout

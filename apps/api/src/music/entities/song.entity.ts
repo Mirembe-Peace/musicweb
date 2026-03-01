@@ -28,4 +28,7 @@ export class Song {
 
   @Column({ default: false })
   isUpcoming: boolean;
+
+  @Column({ nullable: true })
+  previewUrl: string;
 }

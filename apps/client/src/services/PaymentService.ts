@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+import { api } from '@/lib/api';
 
 export interface PaymentDetails {
   amount: number;
@@ -14,14 +12,59 @@ export interface PaymentDetails {
 
 export const initiatePayment = async (details: PaymentDetails) => {
   try {
-    const res = await axios.post(`${API_URL}/payments/initiate`, details);
-    if (res.data.redirect_url) {
-      window.location.href = res.data.redirect_url;
+    const { data } = await api.post('/payments/initiate', details);
+    if (data.redirect_url) {
+      window.location.href = data.redirect_url;
     } else {
       throw new Error("Redirect URL missing");
     }
   } catch (error) {
-    console.error("Payment initiation failed", error);
     throw error;
   }
+};
+
+export const initiateTip = async (params: {
+  amount: number;
+  email: string;
+  phoneNumber?: string;
+}) => {
+  const { data } = await api.post('/payments/tip', {
+    ...params,
+    callbackUrl: window.location.origin + '/payment-success',
+  });
+  if (data.redirect_url) {
+    window.location.href = data.redirect_url;
+  }
+  return data;
+};
+
+export const initiateMusicPurchase = async (params: {
+  songIds: string[];
+  email: string;
+  phoneNumber?: string;
+}) => {
+  const { data } = await api.post('/purchases/initiate', {
+    ...params,
+    callbackUrl: window.location.origin + '/payment-success',
+  });
+  if (data.redirect_url) {
+    window.location.href = data.redirect_url;
+  }
+  return data;
+};
+
+export const initiateTicketPurchase = async (params: {
+  concertId: string;
+  buyerName: string;
+  buyerEmail: string;
+  buyerPhone?: string;
+}) => {
+  const { data } = await api.post('/tickets/purchase', {
+    ...params,
+    callbackUrl: window.location.origin + '/payment-success',
+  });
+  if (data.redirect_url) {
+    window.location.href = data.redirect_url;
+  }
+  return data;
 };

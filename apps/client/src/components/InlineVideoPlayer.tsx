@@ -45,8 +45,8 @@ export default React.forwardRef<InlineVideoPlayerHandle, { url: string; classNam
           if (platform === "vimeo" && vimeoPlayerRef.current) {
             return Number((await vimeoPlayerRef.current.getCurrentTime()) || 0);
           }
-        } catch(err) {
-            console.log(err)
+        } catch {
+          // Player not ready or destroyed — safe to ignore
         }
         return 0;
       },
@@ -59,9 +59,8 @@ export default React.forwardRef<InlineVideoPlayerHandle, { url: string; classNam
           if (platform === "vimeo" && vimeoPlayerRef.current) {
             await vimeoPlayerRef.current.pause();
           }
-        } catch(err) {
-            console.log(err)
-
+        } catch {
+          // Player not ready or destroyed — safe to ignore
         }
       },
     }));
@@ -116,8 +115,8 @@ export default React.forwardRef<InlineVideoPlayerHandle, { url: string; classNam
         cancelled = true;
         try {
           ytPlayerRef.current?.destroy?.();
-        } catch (err){
-            console.log(err)
+        } catch {
+          // Player cleanup — safe to ignore
         }
         ytPlayerRef.current = null;
       };
@@ -134,9 +133,8 @@ export default React.forwardRef<InlineVideoPlayerHandle, { url: string; classNam
         vimeoPlayerRef.current = new Player(vimeoIframeRef.current);
         try {
           await vimeoPlayerRef.current.play();
-        } catch (err){
-            console.log(err)
-
+        } catch {
+          // Autoplay may be blocked by browser — safe to ignore
         }
 
         if (cancelled) return;
@@ -148,8 +146,8 @@ export default React.forwardRef<InlineVideoPlayerHandle, { url: string; classNam
         cancelled = true;
         try {
           vimeoPlayerRef.current?.destroy?.();
-        } catch(err) {
-            console.log(err)
+        } catch {
+          // Player not ready or destroyed — safe to ignore
         }
         vimeoPlayerRef.current = null;
       };

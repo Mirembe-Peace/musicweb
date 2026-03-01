@@ -11,10 +11,5 @@ export const typeOrmConfig = (
   password: configService.get<string>('DB_PASSWORD'),
   database: configService.get<string>('DB_NAME'),
   entities: ['dist/**/*.entity{.ts,.js}'],
-  synchronize: true, //automatically creates and updates database tables based on entities
-  // logging: true,
+  synchronize: configService.get<string>('NODE_ENV') !== 'production',
 });
-
-//creates the typeorm configuration
-//reads the database crendentials from env vars
-//loads all files automatically from the dist folder 

@@ -20,7 +20,7 @@ export class MerchandiseService {
     return product;
   }
 
-  async create(createProductDto: any): Promise<Product> {
+  async create(createProductDto: Partial<Product>): Promise<Product> {
     const product = this.productRepository.create(createProductDto);
     return this.productRepository.save(product);
   }

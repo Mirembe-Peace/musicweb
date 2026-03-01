@@ -14,12 +14,19 @@ export class MusicController {
 
   @Get()
   findAll() {
+    return this.musicService.findAllPublic();
+  }
+
+  // Admin endpoint must be declared BEFORE :id to avoid route shadowing
+  @UseGuards(JwtAuthGuard)
+  @Get('admin/all')
+  findAllAdmin() {
     return this.musicService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.musicService.findOne(id);
+    return this.musicService.findOnePublic(id);
   }
 
   @UseGuards(JwtAuthGuard)

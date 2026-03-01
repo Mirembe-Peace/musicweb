@@ -21,7 +21,7 @@ export class PaymentsController {
 
   constructor(private readonly paymentsService: PaymentsService) {}
 
-  @Post('initiate') // POST   /payments/initiate → Create new payment
+  @Post('initiate')
   async create(@Body() createPaymentDto: CreatePaymentDto) {
     try {
       return await this.paymentsService.initiatePayment(createPaymentDto);
@@ -37,7 +37,32 @@ export class PaymentsController {
     }
   }
 
-  @Get('ipn') // GET    /payments/ipn?OrderTrackingId=xxx → Handle payment callback
+  @Post('tip')
+  async tip(
+    @Body() body: { amount: number; email: string; phoneNumber?: string; callbackUrl: string },
+  ) {
+    try {
+      return await this.paymentsService.initiatePayment(
+        {
+          amount: body.amount,
+          description: 'Tip for Ashaba Music',
+          email: body.email,
+          phoneNumber: body.phoneNumber,
+          callbackUrl: body.callbackUrl,
+          currency: 'UGX',
+        },
+        'TIP',
+      );
+    } catch (error) {
+      this.logger.error('Tip initiation failed', error);
+      throw new HttpException(
+        'Tip initiation failed',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  @Get('ipn')
   async ipn(
     @Query('OrderTrackingId') orderTrackingId: string,
     @Query('OrderMerchantReference') orderMerchantReference: string,
@@ -60,32 +85,23 @@ export class PaymentsController {
     }
   }
 
-  @Get() // GET    /payments → List all payments
+  @Get()
   findAll() {
     return this.paymentsService.findAll();
   }
 
-  @Get(':id') // GET    /payments/:id  → Get specific payment
+  @Get(':id')
   findOne(@Param('id') id: string) {
     return this.paymentsService.findOne(id);
   }
 
-  @Patch(':id') // PATCH  /payments/:id  → Update payment
+  @Patch(':id')
   update(@Param('id') id: string, @Body() updatePaymentDto: UpdatePaymentDto) {
-    return this.paymentsService.update(+id, updatePaymentDto);
+    return this.paymentsService.update(id, updatePaymentDto);
   }
 
-  @Delete(':id') // DELETE /payments/:id → Delete payment
+  @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.paymentsService.remove(+id);
+    return this.paymentsService.remove(id);
   }
 }
-
-// - Maps HTTP routes to service methods
-// - Uses decorators:
-//   - `@Controller('payments')`: Base route is `/payments`
-//   - `@Post(), @Get(), @Patch(), @Delete()`: HTTP methods
-//   - `@Body()`: Extract JSON body
-//   - `@Query()`: Extract query parameters
-//   - `@Param()`: Extract URL parameters
-// - Delegates business logic to PaymentsService

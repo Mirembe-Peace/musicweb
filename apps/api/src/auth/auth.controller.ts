@@ -1,12 +1,16 @@
-import { Controller, Post, Body, UnauthorizedException, Get, UseGuards, Request } from '@nestjs/common';
+import { Controller, Post, Body, UnauthorizedException, ForbiddenException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { AuthService } from './auth.service';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private configService: ConfigService,
+  ) {}
 
   @Post('login')
-  async login(@Body() body: any) {
+  async login(@Body() body: { email: string; password: string }) {
     const user = await this.authService.validateUser(body.email, body.password);
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
@@ -14,9 +18,11 @@ export class AuthController {
     return this.authService.login(user);
   }
 
-  // To test the seeding
   @Post('seed')
   async seed() {
+    if (this.configService.get<string>('NODE_ENV') === 'production') {
+      throw new ForbiddenException('Seed endpoint is disabled in production');
+    }
     await this.authService.seedAdmin();
     return { message: 'Admin seeded if not exists' };
   }

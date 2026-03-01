@@ -28,7 +28,7 @@ export type PaymentRequestPayload = {
   email: string;
   phoneNumber?: string;
   callbackUrl: string;
-  notification_id: string;
+  notification_id?: string;
 };
 
 export async function initiatePayment(payload: PaymentRequestPayload) {

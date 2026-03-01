@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Payment {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')
   id: string;
 
   @Column({ unique: true })
@@ -25,6 +25,9 @@ export class Payment {
 
   @Column({ nullable: true })
   phoneNumber: string;
+
+  @Column({ default: 'OTHER' })
+  type: string; // MUSIC_PURCHASE, TICKET, TIP, OTHER
 
   @Column({ default: 'PENDING' })
   status: string; // PENDING, COMPLETED, FAILED, INVALID

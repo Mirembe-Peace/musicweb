@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router-dom";
-import { LayoutDashboard, Music, Image as ImageIcon, Package, Ticket, BookOpen, LogOut } from "lucide-react";
+import { LayoutDashboard, Music, Image as ImageIcon, Package, Ticket, BookOpen, LogOut, ScanLine } from "lucide-react";
 import { useAuth } from "@/app/AuthContext";
 import { Button } from "@/components/ui/button";
 
@@ -46,6 +46,10 @@ export default function AdminLayout() {
           <NavLink to="/admin/bookings" className={linkClass}>
             <BookOpen className="h-4 w-4" />
             Bookings
+          </NavLink>
+          <NavLink to="/admin/tickets" className={linkClass}>
+            <ScanLine className="h-4 w-4" />
+            Tickets
           </NavLink>
         </nav>
 

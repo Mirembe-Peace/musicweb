@@ -78,3 +78,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Turborepo
+.turbo
+
+# Lock files (using pnpm only)
+package-lock.json
+yarn.lock

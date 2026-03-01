@@ -4,6 +4,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Separator } from "@/components/ui/separator";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { useSiteConfig } from "@/app/useSiteConfig";
+import TipDialog from "@/components/TipDialog";
 
 function NavItem({
   to,
@@ -85,6 +86,8 @@ export default function BrandHeader() {
           {/* Actions */}
           <div className="flex items-center gap-2">
             <ThemeToggle />
+
+            <TipDialog />
 
             <Button
               className="hidden sm:inline-flex"

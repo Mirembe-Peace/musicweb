@@ -1,16 +1,28 @@
+import { IsNumber, IsString, IsEmail, IsOptional, Min } from 'class-validator';
+
 export class CreatePaymentDto {
+  @IsNumber()
+  @Min(1)
   amount: number;
+
+  @IsOptional()
+  @IsString()
   currency?: string;
+
+  @IsString()
   description: string;
+
+  @IsEmail()
   email: string;
+
+  @IsOptional()
+  @IsString()
   phoneNumber?: string;
+
+  @IsString()
   callbackUrl: string;
-  notification_id?: string; // Optional if we hardcode or fetch from env
-  static currency: string;
-  static amount: any;
-  static description: any;
-  static callbackUrl: any;
-  static notification_id: any;
-  static email: any;
-  static phoneNumber: string;
+
+  @IsOptional()
+  @IsString()
+  notification_id?: string;
 }
