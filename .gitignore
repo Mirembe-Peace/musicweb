@@ -82,6 +82,10 @@ dist-ssr
 # Turborepo
 .turbo
 
+# Firebase
+.firebase
+.firebaserc
+
 # Lock files (using pnpm only)
 package-lock.json
 yarn.lock

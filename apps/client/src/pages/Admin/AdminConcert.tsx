@@ -5,10 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plus, Pencil, Trash2, Loader2, Calendar, MapPin, Ticket } from "lucide-react";
 import { toast } from "sonner";
-import axios from 'axios';
+import { api } from '@/lib/api';
 import { Switch } from "@/components/ui/switch";
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 interface Concert {
   id: string;
@@ -33,7 +31,7 @@ export default function AdminConcert() {
   const fetchConcerts = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/concerts`);
+      const res = await api.get('/concerts');
       setConcerts(res.data);
     } catch (error) {
       toast.error("Failed to fetch concerts");
@@ -46,10 +44,10 @@ export default function AdminConcert() {
     e.preventDefault();
     try {
       if (currentConcert.id) {
-        await axios.patch(`${API_URL}/concerts/${currentConcert.id}`, currentConcert);
+        await api.patch(`/concerts/${currentConcert.id}`, currentConcert);
         toast.success("Concert updated successfully");
       } else {
-        await axios.post(`${API_URL}/concerts`, currentConcert);
+        await api.post('/concerts', currentConcert);
         toast.success("Concert created successfully");
       }
       setIsEditing(false);
@@ -63,7 +61,7 @@ export default function AdminConcert() {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this concert?")) return;
     try {
-      await axios.delete(`${API_URL}/concerts/${id}`);
+      await api.delete(`/concerts/${id}`);
       toast.success("Concert deleted successfully");
       fetchConcerts();
     } catch (error) {
@@ -73,7 +71,7 @@ export default function AdminConcert() {
 
   const toggleStatus = async (concert: Concert) => {
     try {
-      await axios.patch(`${API_URL}/concerts/${concert.id}`, { isEnabled: !concert.isEnabled });
+      await api.patch(`/concerts/${concert.id}`, { isEnabled: !concert.isEnabled });
       toast.success(`Concert ${!concert.isEnabled ? 'enabled' : 'disabled'}`);
       fetchConcerts();
     } catch (error) {

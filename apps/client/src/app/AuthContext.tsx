@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
 
 interface AuthContextType {
   token: string | null;
@@ -10,18 +9,16 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(localStorage.getItem('admin_token'));
 
   useEffect(() => {
     if (token) {
       localStorage.setItem('admin_token', token);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     } else {
       localStorage.removeItem('admin_token');
-      delete axios.defaults.headers.common['Authorization'];
     }
+    // Token injection is handled by the api instance interceptor in lib/api.ts
   }, [token]);
 
   const login = (newToken: string) => {

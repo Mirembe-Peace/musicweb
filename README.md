@@ -155,31 +155,69 @@ pnpm --filter ashabamusic-api build    # Outputs to apps/api/dist/
 pnpm --filter ashabamusic-web build    # Outputs to apps/client/dist/
 ```
 
-## Production Deployment
+## Deployment
 
-### API
+### Frontend (Static — Firebase, Vercel, Netlify, etc.)
 
-```bash
-cd apps/api
-NODE_ENV=production node dist/main.js
-```
+The client builds to static files in `apps/client/dist/`. Works with any static hosting.
 
-Key production considerations:
-- Set `NODE_ENV=production` to disable `synchronize` (use TypeORM migrations instead)
-- Set `JWT_SECRET` to a strong random string (the app will refuse to start without it)
-- Set `API_URL` and `CLIENT_URL` to your public domain
-- Set `CORS_ORIGINS` to your frontend domain(s)
-- The `/api/auth/seed` endpoint is automatically disabled in production
-
-### Client
-
-The client builds to static files — serve with any static file server (Nginx, Caddy, Vercel, etc.):
+**Step 1: Set the API URL before building**
 
 ```bash
-cd apps/client
-pnpm build
-# Serve the dist/ directory
+# Create .env in apps/client/ with your production API URL
+echo 'VITE_API_URL=https://your-api-domain.com' > apps/client/.env
 ```
+
+**Step 2: Build**
+
+```bash
+pnpm build:web
+```
+
+**Step 3: Deploy**
+
+```bash
+# Firebase Hosting
+pnpm deploy:firebase
+
+# Vercel (from apps/client/)
+cd apps/client && npx vercel --prod
+
+# Netlify — set build command: cd apps/client && npm run build
+# Publish directory: apps/client/dist
+
+# Or just upload apps/client/dist/ to any static host
+```
+
+### Backend API (Railway, Render, VPS, etc.)
+
+```bash
+# Build
+pnpm build:api
+
+# Start in production
+pnpm start:api
+```
+
+**Required env vars for production:**
+
+| Variable | Example |
+|----------|---------|
+| `NODE_ENV` | `production` |
+| `PORT` | `3000` (or platform-assigned) |
+| `DB_HOST` | Your PostgreSQL host |
+| `DB_PASSWORD` | Your database password |
+| `JWT_SECRET` | Random 32+ char string (required — app won't start without it) |
+| `API_URL` | `https://your-api-domain.com` (for Pesapal IPN callbacks) |
+| `CLIENT_URL` | `https://your-client-domain.com` (for email links) |
+| `CORS_ORIGINS` | `https://your-client-domain.com` |
+| `PESAPAL_CONSUMER_KEY` | Your Pesapal key |
+| `PESAPAL_CONSUMER_SECRET` | Your Pesapal secret |
+
+Production safeguards:
+- `synchronize` is disabled (use TypeORM migrations for schema changes)
+- `/api/auth/seed` is blocked
+- JWT requires a strong secret
 
 ## API Endpoints
 

@@ -5,10 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plus, Pencil, Trash2, Loader2, Image as ImageIcon } from "lucide-react";
 import { toast } from "sonner";
-import axios from 'axios';
+import { api } from '@/lib/api';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 interface ArtistImage {
   id: string;
@@ -30,7 +28,7 @@ export default function AdminImages() {
   const fetchImages = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/images`);
+      const res = await api.get('/images');
       setImages(res.data);
     } catch (error) {
       toast.error("Failed to fetch images");
@@ -43,10 +41,10 @@ export default function AdminImages() {
     e.preventDefault();
     try {
       if (currentImage.id) {
-        await axios.patch(`${API_URL}/images/${currentImage.id}`, currentImage);
+        await api.patch(`/images/${currentImage.id}`, currentImage);
         toast.success("Image updated successfully");
       } else {
-        await axios.post(`${API_URL}/images`, currentImage);
+        await api.post('/images', currentImage);
         toast.success("Image uploaded successfully");
       }
       setIsEditing(false);
@@ -60,7 +58,7 @@ export default function AdminImages() {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this image?")) return;
     try {
-      await axios.delete(`${API_URL}/images/${id}`);
+      await api.delete(`/images/${id}`);
       toast.success("Image deleted successfully");
       fetchImages();
     } catch (error) {

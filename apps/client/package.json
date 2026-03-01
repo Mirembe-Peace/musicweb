@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:firebase": "npm run build && npx firebase deploy --only hosting"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -27,6 +28,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
+    "firebase": "^12.10.0",
     "framer-motion": "^12.34.3",
     "lucide-react": "^0.563.0",
     "next-themes": "^0.4.6",

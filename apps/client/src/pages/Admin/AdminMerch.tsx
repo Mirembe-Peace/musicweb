@@ -5,9 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plus, Pencil, Trash2, Loader2, Package } from "lucide-react";
 import { toast } from "sonner";
-import axios from 'axios';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+import { api } from '@/lib/api';
 
 interface Product {
   id: string;
@@ -30,7 +28,7 @@ export default function AdminMerch() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/merchandise`);
+      const res = await api.get('/merchandise');
       setProducts(res.data);
     } catch (error) {
       toast.error("Failed to fetch merchandise");
@@ -43,10 +41,10 @@ export default function AdminMerch() {
     e.preventDefault();
     try {
       if (currentProduct.id) {
-        await axios.patch(`${API_URL}/merchandise/${currentProduct.id}`, currentProduct);
+        await api.patch(`/merchandise/${currentProduct.id}`, currentProduct);
         toast.success("Product updated successfully");
       } else {
-        await axios.post(`${API_URL}/merchandise`, currentProduct);
+        await api.post('/merchandise', currentProduct);
         toast.success("Product added successfully");
       }
       setIsEditing(false);
@@ -60,7 +58,7 @@ export default function AdminMerch() {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this item?")) return;
     try {
-      await axios.delete(`${API_URL}/merchandise/${id}`);
+      await api.delete(`/merchandise/${id}`);
       toast.success("Product deleted successfully");
       fetchProducts();
     } catch (error) {

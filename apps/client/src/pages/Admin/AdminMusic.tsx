@@ -5,10 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Plus, Pencil, Trash2, Loader2, Play, Pause } from "lucide-react";
 import { toast } from "sonner";
-import axios from 'axios';
+import { api } from '@/lib/api';
 import { useAudio } from '@/app/AudioContext';
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 interface Song {
   id: string;
@@ -32,7 +30,7 @@ export default function AdminMusic() {
   const fetchSongs = async () => {
     try {
       setLoading(true);
-      const res = await axios.get(`${API_URL}/music`);
+      const res = await api.get('/music/admin/all');
       setSongs(res.data);
     } catch (error) {
       toast.error("Failed to fetch songs");
@@ -45,10 +43,10 @@ export default function AdminMusic() {
     e.preventDefault();
     try {
       if (currentSong.id) {
-        await axios.patch(`${API_URL}/music/${currentSong.id}`, currentSong);
+        await api.patch(`/music/${currentSong.id}`, currentSong);
         toast.success("Song updated successfully");
       } else {
-        await axios.post(`${API_URL}/music`, currentSong);
+        await api.post('/music', currentSong);
         toast.success("Song created successfully");
       }
       setIsEditing(false);
@@ -62,7 +60,7 @@ export default function AdminMusic() {
   const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this song?")) return;
     try {
-      await axios.delete(`${API_URL}/music/${id}`);
+      await api.delete(`/music/${id}`);
       toast.success("Song deleted successfully");
       fetchSongs();
     } catch (error) {
